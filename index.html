@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>HOKKAIDO 2026 — Travel Itinerary</title>
+<style>
+  :root{
+    --bg:#f2f4f7;            /* light gray */
+    --card:#ffffff;
+    --line:#dfe3ea;
+    --line-soft:#eaedf2;
+    --ink:#28324a;            /* navy ink */
+    --ink-soft:#5a6478;
+    --muted:#9aa3b5;
+    --blue:#2e6fe0;           /* primary blue */
+    --blue-dark:#1d4fae;
+    --blue-bg:#e9f0fd;
+    --sky:#5aa7e8;
+    --coral:#e8703f;          /* warning / fun pop */
+    --green:#3d9970;
+    --serif:"Georgia","Noto Serif JP","Yu Mincho",serif;
+    --sans:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--sans);line-height:1.8;font-size:14.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ================= Cover : minimal ================= */
+  header{
+    text-align:center;
+    padding:96px 20px 72px;
+    background:var(--bg);
+  }
+  .kicker{
+    display:inline-block;
+    font-size:11px;letter-spacing:.45em;text-transform:uppercase;
+    color:var(--blue);margin-left:.45em;
+  }
+  header h1{
+    font-family:var(--serif);font-weight:400;
+    font-size:56px;letter-spacing:.14em;margin:14px 0 2px;color:var(--ink);
+  }
+  header .jp{
+    font-size:13px;letter-spacing:.55em;color:var(--ink-soft);margin-left:.55em;
+  }
+  .cover-dots{
+    display:flex;justify-content:center;gap:10px;margin:30px 0;
+  }
+  .cover-dots i{
+    width:7px;height:7px;border-radius:50%;display:block;
+  }
+  .cover-dots i:nth-child(1){background:var(--blue);}
+  .cover-dots i:nth-child(2){background:var(--sky);}
+  .cover-dots i:nth-child(3){background:var(--coral);}
+  .cover-date{
+    font-family:var(--serif);font-size:16px;letter-spacing:.25em;color:var(--ink);
+  }
+  .cover-route{
+    margin-top:8px;font-size:11px;letter-spacing:.3em;color:var(--muted);
+    text-transform:uppercase;
+  }
+  .cover-members{margin-top:30px;}
+  .cover-members span{
+    display:inline-block;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;
+    padding:3px 16px;margin:3px;font-size:12px;color:var(--ink-soft);
+    letter-spacing:.1em;
+  }
+
+  /* ================= Section ================= */
+  section{margin-top:72px;}
+  .sec-head{
+    display:flex;align-items:center;gap:14px;margin-bottom:26px;
+  }
+  .sec-no{
+    flex-shrink:0;width:34px;height:34px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:13px;letter-spacing:.05em;
+  }
+  .sec-head h2{
+    font-size:20px;letter-spacing:.14em;font-weight:700;
+  }
+  .sec-head .en{
+    margin-left:auto;font-size:10px;letter-spacing:.3em;color:var(--muted);
+    text-transform:uppercase;
+  }
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;margin-bottom:18px;
+    box-shadow:0 3px 14px rgba(40,50,74,.05);
+  }
+
+  /* ================= Tables ================= */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{
+    border-bottom:1px solid var(--line-soft);
+    padding:11px 13px;text-align:left;vertical-align:top;
+  }
+  th{
+    color:var(--blue);font-weight:600;font-size:11.5px;
+    letter-spacing:.14em;white-space:nowrap;
+  }
+  thead th{border-bottom:2px solid var(--blue-bg);}
+  tr:last-child td{border-bottom:none;}
+  td{color:var(--ink-soft);}
+  td b,td strong{color:var(--ink);font-weight:600;}
+  td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink);}
+  .scroll{overflow-x:auto;}
+
+  /* ================= Day ================= */
+  .day{margin-top:46px;}
+  .day-head{display:flex;align-items:center;gap:16px;margin-bottom:6px;}
+  .day-chip{
+    flex-shrink:0;width:62px;height:62px;border-radius:50%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#fff;line-height:1.15;
+    transform:rotate(-4deg);
+    box-shadow:0 4px 10px rgba(40,50,74,.18);
+  }
+  .day-chip small{font-size:9px;letter-spacing:.25em;}
+  .day-chip b{font-family:var(--serif);font-size:22px;font-weight:400;}
+  .day:nth-of-type(1) .day-chip{background:var(--blue);}
+  .day:nth-of-type(2) .day-chip{background:var(--sky);}
+  .day:nth-of-type(3) .day-chip{background:var(--coral);}
+  .day-title{font-size:18px;font-weight:700;letter-spacing:.06em;}
+  .day-sub{
+    font-size:11px;letter-spacing:.22em;color:var(--muted);
+    text-transform:uppercase;margin-top:2px;
+  }
+  .day-rule{
+    height:0;border-bottom:2px dashed var(--line);
+    margin:16px 0 0;
+  }
+
+  /* ================= Timeline ================= */
+  .tl{list-style:none;padding-top:18px;}
+  .tl li{display:flex;}
+  .tl .time{
+    flex-shrink:0;width:76px;text-align:right;padding:9px 18px 9px 0;
+    font-family:var(--serif);font-size:13.5px;color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .tl .body{
+    flex:1;border-left:2px dashed var(--line);
+    padding:9px 0 16px 22px;position:relative;
+  }
+  .tl .body::before{
+    content:"";position:absolute;left:-6px;top:16px;
+    width:10px;height:10px;border-radius:50%;
+    background:var(--card);border:2px solid var(--muted);
+  }
+  .tl li.hl .body::before{
+    background:var(--blue);border-color:var(--blue);
+    box-shadow:0 0 0 4px var(--blue-bg);
+  }
+  .tl .what{font-size:14.5px;color:var(--ink);}
+  .tl li.hl .what{color:var(--blue-dark);font-weight:700;}
+  .tl .note{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.7;}
+  .tl .note b{color:var(--ink-soft);font-weight:600;}
+
+  .tag{
+    display:inline-block;font-size:9.5px;letter-spacing:.16em;
+    padding:1.5px 10px;margin-left:10px;vertical-align:1.5px;
+    border-radius:999px;text-transform:uppercase;font-weight:600;
+  }
+  .tag.rsv{color:#fff;background:var(--green);}
+  .tag.warn{color:#fff;background:var(--coral);}
+  .tag.tbd{color:var(--ink-soft);background:var(--line-soft);}
+
+  /* ================= Panels ================= */
+  .panel{
+    background:var(--blue-bg);border-radius:14px;
+    padding:20px 24px;margin-top:18px;
+  }
+  .panel-title{
+    font-size:11px;letter-spacing:.28em;color:var(--blue-dark);
+    text-transform:uppercase;font-weight:700;margin-bottom:10px;
+  }
+  .panel ul{list-style:none;}
+  .panel li{
+    padding:4px 0 4px 20px;position:relative;font-size:13px;color:var(--ink-soft);
+  }
+  .panel li::before{
+    content:"";position:absolute;left:2px;top:12px;
+    width:7px;height:7px;border-radius:50%;background:var(--sky);
+  }
+  .panel.alert{background:#fdeee6;}
+  .panel.alert .panel-title{color:var(--coral);}
+  .panel.alert li::before{background:var(--coral);}
+
+  /* ================= Checklist ================= */
+  .check-group{margin-top:24px;}
+  .check-group h3{
+    font-size:14px;font-weight:700;letter-spacing:.12em;
+    color:var(--ink);margin-bottom:10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .check-group h3::before{
+    content:"";width:10px;height:10px;border-radius:3px;
+    background:var(--blue);transform:rotate(45deg);flex-shrink:0;
+  }
+  .check-group:nth-of-type(2) h3::before{background:var(--sky);}
+  .check-group:nth-of-type(3) h3::before{background:var(--coral);}
+  .checks{list-style:none;columns:2;column-gap:40px;}
+  .checks li{
+    break-inside:avoid;padding:6px 0 6px 28px;position:relative;
+    font-size:13px;color:var(--ink-soft);
+  }
+  .checks li::before{
+    content:"";position:absolute;left:0;top:10px;
+    width:13px;height:13px;border-radius:4px;
+    border:2px solid var(--line);background:var(--card);
+  }
+  @media(max-width:560px){.checks{columns:1;}}
+
+  .st-ok{color:var(--green);font-weight:600;}
+  .st-ng{color:var(--coral);font-weight:600;}
+
+  footer{
+    margin-top:90px;text-align:center;
+    font-size:10px;letter-spacing:.35em;color:var(--muted);
+    text-transform:uppercase;
+  }
+  footer .dots{display:flex;justify-content:center;gap:8px;margin-bottom:16px;}
+  footer .dots i{width:6px;height:6px;border-radius:50%;display:block;}
+  footer .dots i:nth-child(1){background:var(--blue);}
+  footer .dots i:nth-child(2){background:var(--sky);}
+  footer .dots i:nth-child(3){background:var(--coral);}
+  footer .mark{
+    font-family:var(--serif);font-size:13px;color:var(--ink);
+    letter-spacing:.3em;margin-bottom:6px;
+  }
+
+  @media print{
+    body{background:#fff;font-size:12px;}
+    .card{box-shadow:none;break-inside:avoid;}
+    section{break-inside:avoid-page;margin-top:36px;}
+    .day{break-inside:avoid-page;}
+    header{padding:46px 20px 30px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="kicker">Travel Itinerary</span>
+  <h1>HOKKAIDO</h1>
+  <div class="jp">北海道、夏の旅</div>
+  <div class="cover-dots"><i></i><i></i><i></i></div>
+  <div class="cover-date">2026.07.04 — 07.06</div>
+  <div class="cover-route">Sapporo · Furano · Otaru</div>
+  <div class="cover-members">
+    <span>谷川</span><span>田中</span><span>田尻</span><span>西山</span><span>川田</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 01 Overview ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">01</span>
+    <h2>旅の概要</h2>
+    <span class="en">Overview</span>
+  </div>
+  <div class="card">
+    <div class="scroll"><table>
+      <tr><th>日程</th><td>2026年7月4日（土）— 7月6日（月）　2泊3日</td></tr>
+      <tr><th>メンバー</th><td>5名　熊本組：谷川（幹事）・田中・田尻・西山　／　東京組：川田</td></tr>
+      <tr><th>宿泊</th><td><b>民泊「アルファーN13」</b>（Airbnb）　2連泊（5名）<br>札幌市北区北13条西1-2-12　<span style="color:var(--muted);font-size:12px;">地下鉄北12条駅 徒歩4分 / JR札幌駅 徒歩約8-12分</span></td></tr>
+      <tr><th>ハイライト</th><td>富良野ラベンダー（ファーム富田）／ サッポロビール園 ／ 藻岩山夜景 ／ 小樽の鮨</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ 02 Itinerary ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">02</span>
+    <h2>行程</h2>
+    <span class="en">Itinerary</span>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-chip"><small>DAY</small><b>01</b></div>
+      <div>
+        <div class="day-title">札幌 — 集結、乾杯、夜景</div>
+        <div class="day-sub">7.4 SAT · Sapporo · Cheers to the reunion!</div>
+      </div>
+    </div>
+    <div class="day-rule"></div>
+    <ul class="tl">
+      <li><span class="time">11:30</span><div class="body"><div class="what">熊本組　福岡空港 発　ANA NH4813<span class="tag rsv">Booked</span></div><div class="note">福岡空港には2時間前着を推奨 — 熊本発 7:30–8:00 目安</div></div></li>
+      <li><span class="time">12:40</span><div class="body"><div class="what">川田　羽田空港 発　JAL 515<span class="tag rsv">Booked</span></div></div></li>
+      <li><span class="time">13:50</span><div class="body"><div class="what">熊本組　新千歳 着 — JR快速エアポートで札幌へ</div><div class="note">約40分 / ¥1,150</div></div></li>
+      <li><span class="time">14:15</span><div class="body"><div class="what">川田　新千歳 着 — JRで札幌へ</div></div></li>
+      <li class="hl"><span class="time">15:30</span><div class="body"><div class="what">札幌駅北口 — 全員集合！</div><div class="note">民泊（北区北13条西・JR札幌駅 徒歩約10分／地下鉄 北12条駅 徒歩4分）へ。荷物を置いて身軽に。玄関はキーパッド式（暗証番号は田中が共有）</div></div></li>
+      <li><span class="time">16:00</span><div class="body"><div class="what">市内さんぽ　赤れんが庁舎 → 時計台 → 大通公園 → さっぽろテレビ塔</div><div class="note">徒歩で巡る王道コース・約2時間</div></div></li>
+      <li><span class="time">18:00</span><div class="body"><div class="what">テレビ塔前からタクシー2台でビール園へ</div><div class="note">約10分 / 1台 約¥1,500</div></div></li>
+      <li class="hl"><span class="time">18:30</span><div class="body"><div class="what">サッポロビール園 ポプラ館 — ジンギスカンで乾杯<span class="tag rsv">Booked</span></div><div class="note">食べ放題＋飲み放題 120分制 / ¥6,100<br><b>30分以上の遅刻・無連絡は自動キャンセル</b></div></div></li>
+      <li><span class="time">20:30</span><div class="body"><div class="what">タクシー2台で藻岩山ロープウェイ山麓駅へ</div><div class="note">約20分 / 1台 約¥3,000</div></div></li>
+      <li class="hl"><span class="time">21:00</span><div class="body"><div class="what">藻岩山 — 日本新三大夜景を一望</div><div class="note">ロープウェイ往復 ¥2,100 / 予約不要 / 上り最終 21:30</div></div></li>
+      <li><span class="time">22:30</span><div class="body"><div class="what">宿に帰着 — おつかれさま！</div></div></li>
+    </ul>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-chip"><small>DAY</small><b>02</b></div>
+      <div>
+        <div class="day-title">富良野・美瑛 — ラベンダーと青い池</div>
+        <div class="day-sub">7.5 SUN · Furano / Biei · Lavender in full bloom</div>
+      </div>
+    </div>
+    <div class="day-rule"></div>
+    <ul class="tl">
+      <li><span class="time">8:30</span><div class="body"><div class="what">宿を出発</div><div class="note">連泊のためそのまま / 朝食は各自コンビニ等で</div></div></li>
+      <li class="hl"><span class="time">8:55</span><div class="body"><div class="what">JR札幌駅北口 定期観光バス乗り場 — チェックイン</div><div class="note"><b>出発15分前必須。遅れると乗車不可・全額負担！</b></div></div></li>
+      <li class="hl"><span class="time">9:10</span><div class="body"><div class="what">バスツアー出発　北海道中央バス<span class="tag rsv">Booked</span></div><div class="note">¥9,800 / 昼食・四季彩の丘入場料込み</div></div></li>
+      <li><span class="time">昼</span><div class="body"><div class="what">ハイランドふらの — 昼食 50分</div><div class="note">プチチーズフォンデュ＆ハンバーグ</div></div></li>
+      <li class="hl"><span class="time">午後</span><div class="body"><div class="what">ファーム富田 — 60分　ラベンダー最盛期！</div><div class="note">日陰なし。日焼け止め・帽子・水分を忘れずに</div></div></li>
+      <li><span class="time"></span><div class="body"><div class="what">四季彩の丘 — 30分　→　青い池 — 25分</div><div class="note">カメラの充電はしっかりと</div></div></li>
+      <li><span class="time">19:06</span><div class="body"><div class="what">JR札幌駅 着</div></div></li>
+      <li><span class="time">20:00</span><div class="body"><div class="what">札幌にて夕食<span class="tag tbd">TBD</span></div><div class="note">ラーメン横丁・居酒屋など / 〆パフェも一案</div></div></li>
+    </ul>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day">
+    <div class="day-head">
+      <div class="day-chip"><small>DAY</small><b>03</b></div>
+      <div>
+        <div class="day-title">小樽 — 運河、鮨、また会う日まで</div>
+        <div class="day-sub">7.6 MON · Otaru · Sushi time by the canal</div>
+      </div>
+    </div>
+    <div class="day-rule"></div>
+    <ul class="tl">
+      <li><span class="time">8:00</span><div class="body"><div class="what">朝食</div></div></li>
+      <li><span class="time">8:30</span><div class="body"><div class="what">チェックアウト（10:00前まで）— 荷物は全部持って出る</div><div class="note">宅配便は使わず手持ちで運ぶ（民泊はフロントなし＆受取時刻を待たず新千歳で即チェックインできる）</div></div></li>
+      <li><span class="time">9:09</span><div class="body"><div class="what">JR札幌駅 発　快速エアポート 小樽行（荷物ごと乗車）</div><div class="note">約32分 / ¥750</div></div></li>
+      <li class="hl"><span class="time">9:41</span><div class="body"><div class="what">JR小樽駅 着 — まず駅コインロッカーへ荷物を収納、手ぶらに</div><div class="note">改札出て左奥（トイレ手前）。大型 ¥700 / 余裕あれば三角市場（駅徒歩1分）ものぞける</div></div></li>
+      <li><span class="time">10:30</span><div class="body"><div class="what">寿司屋通りへ徒歩移動 — 約10分</div></div></li>
+      <li class="hl"><span class="time">11:00</span><div class="body"><div class="what">おたる政寿司 本店 — 個室 / 90分制<span class="tag rsv">Booked</span></div><div class="note">「匠 -TAKUMI-」握り12貫 ¥6,820 / 予約番号 <b>GTYMJ5</b>（谷川名義）/ 12:30退店</div></div></li>
+      <li><span class="time">12:40</span><div class="body"><div class="what">堺町通り商店街 — お土産＆食べ歩き</div><div class="note">北一硝子 / ルタオ本店 / かま栄 / 六花亭　約70分</div></div></li>
+      <li><span class="time">13:50</span><div class="body"><div class="what">小樽運河を眺めつつ小樽駅へ — 徒歩約10分</div><div class="note">中央橋からの眺めが定番フォトスポット</div></div></li>
+      <li class="hl"><span class="time">14:00</span><div class="body"><div class="what">小樽駅 — ロッカーから荷物回収 ＋ 乗車券購入　¥1,910 / 自由席</div><div class="note">始発駅のため着席見込み。早めにホームへ</div></div></li>
+      <li class="hl"><span class="time">14:35</span><div class="body"><div class="what">JR快速エアポート — 新千歳空港へ直通（荷物ごと）</div><div class="note">約80分</div></div></li>
+      <li><span class="time">15:55</span><div class="body"><div class="what">新千歳空港 着 — 荷物が手元にあるのでそのままチェックイン / お土産ラストスパート</div></div></li>
+      <li class="hl"><span class="time">18:30</span><div class="body"><div class="what">熊本組 出発　ANA NH1280 — 20:55 福岡着<span class="tag rsv">Booked</span></div></div></li>
+      <li class="hl"><span class="time">19:15</span><div class="body"><div class="what">川田 出発　JAL 524 — 20:55 羽田着<span class="tag rsv">Booked</span></div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 03 Reservations ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">03</span>
+    <h2>予約一覧</h2>
+    <span class="en">Reservations</span>
+  </div>
+  <div class="card">
+    <div class="scroll"><table>
+      <thead><tr><th>項目</th><th>内容</th><th style="text-align:right;">金額 / 人</th><th>備考</th></tr></thead>
+      <tr><td><b>民泊</b></td><td>アルファーN13（Airbnb）　7/4–6 2泊・5名<br>札幌市北区北13条西1-2-12<br><span style="font-size:12px;color:var(--muted);">地下鉄北12条駅 徒歩4分・キーパッド式セルフチェックイン<br>IN 7/4 15:00以降 / OUT 7/6 10:00前</span></td><td class="num">¥15,460</td><td>田中名義・予約済<br>旧ホテルから変更</td></tr>
+      <tr><td><b>ビール園</b></td><td>ポプラ館　7/4 18:30　食べ放題＋飲み放題</td><td class="num">¥6,100</td><td>050-1721-5011</td></tr>
+      <tr><td><b>バスツアー</b></td><td>VELTRA / 北海道中央バス　7/5 9:10 発<br>ファーム富田・四季彩の丘・青い池</td><td class="num">¥9,800</td><td>昼食込</td></tr>
+      <tr><td><b>鮨</b></td><td>おたる政寿司 本店　7/6 11:00　個室<br>「匠 -TAKUMI-」握り12貫 / 90分制</td><td class="num">¥6,820</td><td>予約番号 GTYMJ5<br>0134-64-1101</td></tr>
+      <tr><td><b>航空券<br>熊本組</b></td><td>往　NH4813　福岡 11:30 → 新千歳 13:50<br>復　NH1280　新千歳 18:30 → 福岡 20:55</td><td class="num">¥53,650</td><td>決済済</td></tr>
+      <tr><td><b>航空券<br>川田</b></td><td>往　JAL515　羽田 12:40 → 新千歳 14:15<br>復　JAL524　新千歳 19:15 → 羽田 20:55</td><td class="num">¥37,588</td><td>本人手配済</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ 04 Packing ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">04</span>
+    <h2>持ち物</h2>
+    <span class="en">Packing List</span>
+  </div>
+  <div class="card">
+    <div class="check-group">
+      <h3>服装・身につけるもの</h3>
+      <ul class="checks">
+        <li>羽織り — 朝夕は15℃前後、必須</li>
+        <li>帽子・サングラス</li>
+        <li>歩きやすい靴</li>
+        <li>日焼け止め — ファーム富田は日陰なし</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h3>貴重品・チケット類</h3>
+      <ul class="checks">
+        <li>身分証明書・健康保険証</li>
+        <li>クレジットカード（タッチ決済推奨）</li>
+        <li>交通系ICカード</li>
+        <li>現金 — 市場・タクシー割り勘用</li>
+        <li>航空券 — アプリ / タッチ&amp;ゴー確認</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h3>ガジェット・その他</h3>
+      <ul class="checks">
+        <li>モバイルバッテリー — バスツアー中の必需品</li>
+        <li>充電ケーブル</li>
+        <li>虫除け — 花畑・青い池周辺</li>
+        <li>折りたたみ傘 — 小樽は屋根少なめ</li>
+        <li>常備薬・酔い止め</li>
+        <li>エコバッグ — お土産用</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Luggage Tip</div>
+      <ul>
+        <li>最終日は荷物を手持ちで運び、小樽駅のコインロッカーに一時収納して観光（宅配便は使わない）</li>
+        <li>小樽駅ロッカー：改札を出て左奥（トイレ手前）。大型 ¥700・中 ¥500・小 ¥400。IC対応・両替機あり</li>
+        <li>満杯時の保険 → 駅前「いちふじビル」1Fの手荷物預かり所「きたりん」</li>
+        <li>手持ちなら新千歳に15:55着でそのまま即チェックイン。受取時刻を待たずに済む</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 Money ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">05</span>
+    <h2>精算</h2>
+    <span class="en">Money</span>
+  </div>
+  <div class="card">
+    <div class="scroll"><table>
+      <thead><tr><th>メンバー</th><th style="text-align:right;">谷川へ</th><th style="text-align:right;">田中へ</th><th>状況</th></tr></thead>
+      <tr><td>田中</td><td class="num">¥76,370</td><td class="num">—</td><td class="st-ok">精算済</td></tr>
+      <tr><td>田尻</td><td class="num">¥76,370</td><td class="num">¥22,400</td><td class="st-ok">精算済</td></tr>
+      <tr><td>川田</td><td class="num">¥22,720</td><td class="num">¥22,400</td><td class="st-ok">精算済</td></tr>
+      <tr><td>西山</td><td class="num">¥76,370</td><td class="num">¥22,400</td><td class="st-ok">精算済</td></tr>
+    </table></div>
+    <p style="font-size:12px;color:var(--muted);margin-top:12px;">参加メンバー5名 全員の事前精算が完了しました。（赤星さんは不参加・精算対象外）</p>
+
+    <div class="panel" style="margin-top:18px;">
+      <div class="panel-title">宿泊費の返金</div>
+      <ul>
+        <li>宿をホテルから民泊に変更し、宿泊費が ¥134,400 → ¥77,300 に（1人 ¥22,400 → ¥15,460）</li>
+        <li>支払い済みとの差額 <b>約¥6,940/人</b> を、田中が<b>当日に各自へ返金</b>します</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-top:22px;">
+      <div class="panel-title">振込先</div>
+      <ul>
+        <li>谷川・田中の口座情報は<b>LINEグループ（または本人）で確認</b>してください</li>
+        <li>※ 共有用ページのため、口座番号はこちらには記載していません</li>
+      </ul>
+    </div>
+
+    <div class="scroll" style="margin-top:22px;"><table>
+      <thead><tr><th>現地で使うお金の目安（1人）</th><th style="text-align:right;">金額</th></tr></thead>
+      <tr><td>JR・市電・タクシー割り勘（3日分）</td><td class="num">約 ¥7,000</td></tr>
+      <tr><td>藻岩山ロープウェイ</td><td class="num">¥2,100</td></tr>
+      <tr><td>朝食 ×2・7/5夕食・軽食</td><td class="num">約 ¥7,000</td></tr>
+      <tr><td>お土産・お酒など</td><td class="num">¥5,000 〜</td></tr>
+      <tr><td><b>合計目安</b></td><td class="num"><b>約 ¥21,000 〜</b></td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ 06 Notes ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-no">06</span>
+    <h2>注意事項</h2>
+    <span class="en">Notes</span>
+  </div>
+
+  <div class="panel alert" style="margin-top:0;">
+    <div class="panel-title">遅刻厳禁 — ここだけは守ろう</div>
+    <ul>
+      <li>7/5　8:55　バスツアーチェックイン — 遅れると乗車不可・全額負担</li>
+      <li>7/4　18:30　ポプラ館 — 30分遅刻＋無連絡で自動キャンセル</li>
+      <li>7/6　11:00　政寿司 — 90分制、頭から楽しむべし</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Cancellation</div>
+    <ul>
+      <li>民泊 — Airbnbの物件規定による（要確認・厳格な設定が多い）</li>
+      <li>バスツアー — 前々日まで実質無料（@¥100）/ 当日朝7:10以降 100%</li>
+      <li>政寿司 — 48時間前から50% / 24時間前から100%</li>
+      <li>ANA — 取消は出発前まで30%（6/6以降）/ 出発後 100%</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Contacts</div>
+    <ul>
+      <li>民泊ホスト — Airbnbアプリ内メッセージ（田中が窓口）</li>
+      <li>サッポロビール園 ポプラ館 — 050-1721-5011</li>
+      <li>おたる政寿司 本店 — 0134-64-1101</li>
+      <li>田中（民泊の予約者）— LINEグループで連絡</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="dots"><i></i><i></i><i></i></div>
+  <div class="mark">HOKKAIDO 2026</div>
+  07.04 — 07.06 · Sapporo / Furano / Otaru · Updated 2026.05.18
+</footer>
+
+</div>
+</body>
+</html>
